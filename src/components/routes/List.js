@@ -19,7 +19,7 @@ class List extends Component {
     try {
         const instance = axios.create({
           baseURL: '/api',
-          headers: {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE2MjA4NzAwNjQsImV4cCI6MTYyMDg3MzA2NCwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJfbmFtZSI6IjEifQ.Xv6_Lom0PFgEvUysOdu2iBjIB1rOaIPimFiiLM1DCjI'
+          headers: {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE2MjA5MTEyMzYsImV4cCI6MTYyMDkxNDIzNiwidXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJfbmFtZSI6IjEifQ.gzj9QpJKXMGwisE28i5E9VGs1WCx3N283wIs36EiqEE'
           }
         });
 
@@ -58,8 +58,8 @@ class List extends Component {
         {/* {boards[0].boardPostId} */}
           {boards.map((item) => {
               return (
-                  <ListItem key={item.id}>
-                      <Link to={`/read/${item.boardPostId}`}>
+                  <ListItem key={item.board_post_id +''+ item.sort_order}>
+                      <Link to={`/read/${item.board_post_id}`}>
                           <h3>{item.title}</h3>
                           <p>{item.content}</p>
                       </Link>
