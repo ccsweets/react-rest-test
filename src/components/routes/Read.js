@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import Pagination from "./Pagenation";
 
 class Read extends Component {
     state = {
@@ -87,15 +88,16 @@ class Read extends Component {
                         수정
                     </a>
                 </Button>
-
+                <br/>
+                <span>댓글</span>
+                <br/><br/>
                 {comments.map((item) => {
                     return (
                         <ListItem key={item.board_comment_id +''+ item.sort_order}>
-                            <p>{item.content}</p>
+                            <p>{item.depth==2?'ㄴ ':''} <b>{item.reply_member_name}</b> {item.content} 작성자({item.member_name}) 작성시간({item.created_at})</p>
                         </ListItem>
                     );
                 })}
-
             </Wrap>
         );
     }
@@ -111,6 +113,7 @@ const Wrap = styled.div`
   p {
     min-height: 200px;
   }
+
 `;
 const Button = styled.div`
   border-top: 1px solid #eee;
@@ -133,6 +136,7 @@ const Button = styled.div`
 
 const ListItem = styled.div`
   width: 100%;
+  height: 50px;
   border-top: 1px solid #eee;
   a {
     text-decoration: none;
@@ -142,10 +146,9 @@ const ListItem = styled.div`
       color: #212121;
     }
     p {
-      margin: 0;
-      padding: 0;
-      color: #787878;
+      padding-left: 50px;
     }
+    
     &:hover {
       h3 {
         color: #0066ff;

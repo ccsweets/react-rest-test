@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import Pagination from "./Pagenation";
 
 class List extends Component {
   state = {
     boards: [],
+  data: [],
   };
 
   handleChange = (e) => {
@@ -26,7 +28,8 @@ class List extends Component {
         instance.get('/boards/1/posts')
         .then(response => {
              this.setState({
-                boards: response.data.content
+                boards: response.data.content,
+                 data: response.data
               });
         })
     } catch (e) {
@@ -39,7 +42,7 @@ class List extends Component {
   }
 
   render() {
-    const { boards } = this.state;
+    const { boards ,data } = this.state;
     const { handleChange } = this;
     return (
       <Wrap>
@@ -50,7 +53,7 @@ class List extends Component {
               name="getBoards2"
               onChange={handleChange}
               rows={7}
-              value={JSON.stringify(boards, null, 2)}
+              value={JSON.stringify(data, null, 2)}
             />
           )}
         </div>
@@ -71,6 +74,36 @@ class List extends Component {
           {/* <button onClick={handleClick}>get Request</button> */}
           <Link to={`/write`}>글쓰기</Link>
         </Button>
+          {/*
+          "pageable": {
+          "sort": {
+          "sorted": true,
+          "unsorted": false,
+          "empty": false
+          },
+              "offset": 0,
+              "page_number": 0,
+              "page_size": 20,
+              "unpaged": false,
+              "paged": true
+          },
+              "total_pages": 1,
+              "last": true,
+              "total_elements": 20,
+              "size": 20,
+              "number": 0,
+              "sort": {
+              "sorted": true,
+              "unsorted": false,
+              "empty": false
+          },
+          "number_of_elements": 7,
+          "first": true,
+          "empty": false
+          }
+          */}
+          <Pagination postsPerPage={data.size} totalPosts={data.number_of_elements} paginate={null}></Pagination>
+
       </Wrap>
     );
   }
